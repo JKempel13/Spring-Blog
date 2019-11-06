@@ -1,9 +1,21 @@
 package com.codeup.springblog;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "int(11) UNSIGNED", nullable = false)
     private long id;
+    @Column(length = 200, nullable = false, unique = true)
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    public Post() {
+    }
 
     public Post(long id, String title, String content) {
         this.id = id;
