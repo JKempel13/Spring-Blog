@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="fragments/header :: main-header(false)"/>
+</head>
+<body class="container">
+
+<div th:replace="fragments/navbar :: main-navbar"></div>
+
+<h1>Featured Posts</h1>
+<hr>
+
+    <div class="card mb-3 col-sm-12" th:each="post : ${posts}">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.content}"></p>
+        <input type="hidden" name="id" th:value="${post.id}">
+    </div>
+
+<div th:replace="fragments/footer :: main-footer"></div>
+</body>
+</html>

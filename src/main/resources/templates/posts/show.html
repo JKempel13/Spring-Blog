@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="fragments/header :: main-header(true)"/>
+</head>
+<body class="container">
+
+<div th:replace="fragments/navbar :: main-navbar"></div>
+<hr>
+<hr>
+<div class="card">
+    <div class="col-sm-12">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.content}"></p>
+        <input type="hidden" name="id" th:value="${post.id}">
+    </div>
+</div>
+<div th:replace="fragments/footer :: main-footer"></div>
+</body>
+</html>
