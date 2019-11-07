@@ -5,19 +5,33 @@
     <title>Title</title>
     <th:block th:replace="fragments/header :: main-header(false)"/>
 </head>
-<body class="container">
-
+<body>
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
-<h1>Featured Posts</h1>
-<hr>
-
-    <div class="card mb-3 col-sm-12" th:each="post : ${posts}">
-        <h1 th:text="${post.title}"></h1>
-        <p th:text="${post.content}"></p>
-        <input type="hidden" name="id" th:value="${post.id}">
+<div class="container">
+<div class="jumbotron jumbotron-fluid mt-3">
+    <div class="container">
+        <h1 class="display-4 text-center">Featured Posts</h1>
+        <p class="lead text-center">This is a great place to share what ever is on your mind.</p>
     </div>
-
+</div>
+<hr>
+    <div class="card mb-3 col-sm-12" th:each="post : ${posts}">
+        <a th:href="@{'posts/' + ${post.id}}">
+            <h1 th:text="${post.title}"></h1>
+            <p th:text="${post.content}"></p>
+            <input type="hidden" name="id" th:value="${post.id}">
+        </a>
+<!--        <form action="/posts/edit" method="get">-->
+<!--            <input type="hidden" name="id" th:value="${post.id}">-->
+<!--            <button class="btn btn-info">Edit</button>-->
+<!--        </form>-->
+<!--        <form action="/posts" method="post">-->
+<!--            <input type="hidden" name="id" th:value="${post.id}">-->
+<!--            <button class="btn btn-danger">Delete</button>-->
+<!--        </form>-->
+    </div>
+</div>
 <div th:replace="fragments/footer :: main-footer"></div>
 </body>
 </html>

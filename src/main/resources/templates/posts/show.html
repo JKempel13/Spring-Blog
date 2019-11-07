@@ -9,13 +9,17 @@
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <hr>
-<hr>
 <div class="card">
     <div class="col-sm-12">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.content}"></p>
         <input type="hidden" name="id" th:value="${post.id}">
+        <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
+        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+            <button class="btn btn-danger btn-block">Delete</button>
+        </form>
     </div>
+
 </div>
 <div th:replace="fragments/footer :: main-footer"></div>
 </body>
