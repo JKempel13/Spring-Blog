@@ -1,6 +1,7 @@
 package com.codeup.springblog.Controller;
 
 import com.codeup.springblog.Post;
+import com.codeup.springblog.PostDetails;
 import com.codeup.springblog.repositories.PostRepository;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,42 @@ public class PostController {
 
     ArrayList<Post> postList;
 
-    private PostRepository postDao;
+    private final PostRepository postDao;
 
     public PostController(PostRepository postDao) {
         this.postDao = postDao;
+    }
+
+//    @GetMapping("/posts")
+//    public String returnTestView(@PathVariable long id, Model viewModel) {
+//        viewModel.addAttribute("posts", postDao.getOne(id));
+//        return "post/index";
+//    }
+
+    @GetMapping("/posts/{id}/historyOfPost")
+    public String historyOfPost (@PathVariable long id, Model vModel) {
+        Post post = postDao.getOne(id);
+        vModel.addAttribute("post", post);
+        return "posts/historyOfPost";
+    }
+
+    @PostMapping("/posts/update/{id}")
+    public String updateDescription(@PathVariable long id, @RequestParam String description) {
+
+        // get the correct pet object to update
+        Post post = postDao.getOne(id);
+
+        // get the current post details
+        PostDetails pd = post.getPostDetails();
+
+        // update the post details with the current details
+        pd.setTopicDescription(description);
+        post.setPostDetails(pd);
+
+        // update the database record
+        postDao.save(post);
+
+        return "redirect:/posts";
     }
 
     //shows all the posts
@@ -49,10 +82,10 @@ public class PostController {
 
     // to post the changes made to post
     @PostMapping("/posts/{id}/edit")
-    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String content) {
+    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String description) {
         Post oldPost = postDao.getOne(id);
         oldPost.setTitle(title);
-        oldPost.setContent(content);
+        oldPost.setContent(description);
         postDao.save(oldPost);
         return "redirect:/posts/" + id;
     }
@@ -77,6 +110,7 @@ public class PostController {
         System.out.println("body = " + body);
         return "create a new ad";
     }
+
 
 //    @GetMapping("/posts/length")
 //    public List<String> returnPostByLength() {

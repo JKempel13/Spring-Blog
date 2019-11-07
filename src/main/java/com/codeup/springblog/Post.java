@@ -9,23 +9,26 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(11) UNSIGNED")
     private long id;
-    @Column(length = 200, nullable = false, unique = true)
+    @Column(length = 200, nullable = false)
     private String title;
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String description;
+
+    @OneToOne
+    private PostDetails postDetails;
 
     public Post() {
     }
 
-    public Post(String title, String content) {
+    public Post(String title, String description) {
         this.title = title;
-        this.content = content;
+        this.description = description;
     }
 
-    public Post(long id, String title, String content) {
+    public Post(long id, String title, String description) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.description = description;
     }
 
     public long getId() {
@@ -45,10 +48,18 @@ public class Post {
     }
 
     public String getContent() {
-        return content;
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContent(String description) {
+        this.description = description;
+    }
+
+    public PostDetails getPostDetails() {
+        return postDetails;
+    }
+
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
     }
 }
