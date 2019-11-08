@@ -85,7 +85,7 @@ public class PostController {
     public String update(@PathVariable long id, @RequestParam String title, @RequestParam String description) {
         Post oldPost = postDao.getOne(id);
         oldPost.setTitle(title);
-        oldPost.setContent(description);
+        oldPost.setDescription(description);
         postDao.save(oldPost);
         return "redirect:/posts/" + id;
     }

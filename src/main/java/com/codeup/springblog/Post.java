@@ -1,10 +1,13 @@
 package com.codeup.springblog;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int(11) UNSIGNED")
@@ -17,18 +20,23 @@ public class Post {
     @OneToOne
     private PostDetails postDetails;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostImage> images;
+
     public Post() {
     }
 
-    public Post(String title, String description) {
+    public Post(String title, String description, PostDetails postDetails, List<PostImage> images) {
         this.title = title;
         this.description = description;
+        this.postDetails = postDetails;
+        this.images = images;
     }
 
-    public Post(long id, String title, String description) {
-        this.id = id;
+    public Post(String title, String description, PostDetails postDetails) {
         this.title = title;
         this.description = description;
+        this.postDetails = postDetails;
     }
 
     public long getId() {
@@ -47,11 +55,11 @@ public class Post {
         this.title = title;
     }
 
-    public String getContent() {
+    public String getDescription() {
         return description;
     }
 
-    public void setContent(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -61,5 +69,13 @@ public class Post {
 
     public void setPostDetails(PostDetails postDetails) {
         this.postDetails = postDetails;
+    }
+
+    public List<PostImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<PostImage> images) {
+        this.images = images;
     }
 }

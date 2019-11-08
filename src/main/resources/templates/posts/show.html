@@ -12,14 +12,18 @@
 <div class="card">
     <div class="col-sm-12">
         <h1 th:text="${post.title}"></h1>
-        <p th:text="${post.content}"></p>
+        <ul th:each="postImage : ${post.images}">
+        <p th:text="${postImage.image_title}"></p>
+            <img th:src="${postImage.url}"/>
+<!--            <li th:text="${postImage.image_title}"></li>-->
+        </ul>
+        <p th:text="${post.description}"></p>
         <input type="hidden" name="id" th:value="${post.id}">
         <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
         <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
             <button class="btn btn-danger btn-block">Delete</button>
         </form>
     </div>
-
 </div>
 <div th:replace="fragments/footer :: main-footer"></div>
 </body>
