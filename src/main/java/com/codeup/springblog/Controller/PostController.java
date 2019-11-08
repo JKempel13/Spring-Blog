@@ -3,8 +3,10 @@ package com.codeup.springblog.Controller;
 import com.codeup.springblog.Post;
 import com.codeup.springblog.PostDetails;
 import com.codeup.springblog.Tag;
+import com.codeup.springblog.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.TagRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +23,12 @@ public class PostController {
 
     private final PostRepository postDao;
     private final TagRepository tagDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postDao, TagRepository tagDao) {
+    public PostController(PostRepository postDao, TagRepository tagDao, UserRepository userDao) {
         this.postDao = postDao;
         this.tagDao = tagDao;
+        this.userDao = userDao;
     }
 
 //    @GetMapping("/posts")
@@ -121,17 +125,19 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String showForm() {
-        return "view the form for creating an ad";
+    public String showCreateForm() {
+        return "posts/createPost";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String create(@RequestParam String title, @RequestParam String body) {
-        System.out.println("title = " + title);
-        System.out.println("body = " + body);
-        return "create a new ad";
+    public String create(@RequestParam String title, @RequestParam String description){
+
+        Post post = new Post(title, description);
+        post.setUser(userDao.getOne(1L));
+
+        postDao.save(post);
+
+        return "redirect:/posts";
     }
 
 

@@ -26,6 +26,10 @@ public class Post {
     @ManyToMany(mappedBy = "posts")
     private List<Tag> tags;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Post() {
     }
 
@@ -34,6 +38,13 @@ public class Post {
         this.description = description;
         this.postDetails = postDetails;
         this.images = images;
+    }
+
+    // NOT SURE IF I NEED THE USER TAG HERE//
+    public Post(String title, String description) {
+//        this.user = user;//MIGHT NOT NEED THIS
+        this.title = title;
+        this.description = description;
     }
 
     public long getId() {
@@ -82,5 +93,13 @@ public class Post {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
