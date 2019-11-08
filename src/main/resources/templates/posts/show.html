@@ -13,9 +13,7 @@
     <div class="col-sm-12">
         <h1 th:text="${post.title}"></h1>
         <ul th:each="postImage : ${post.images}">
-        <p th:text="${postImage.image_title}"></p>
             <img th:src="${postImage.url}"/>
-<!--            <li th:text="${postImage.image_title}"></li>-->
         </ul>
         <p th:text="${post.description}"></p>
         <input type="hidden" name="id" th:value="${post.id}">

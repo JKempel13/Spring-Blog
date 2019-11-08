@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>List of Post Tags</h1>
+
+<div th:each="post : ${posts}">
+    <h3><span th:text="${post.title}"></span>'s Tags</h3>
+    <ul th:each="tag : ${post.tags}">
+        <li th:text="${tag.name}"></li>
+    </ul>
+    <form th:action="@{'/tags/post/' + ${post.id}}" th:method="post">
+        <input type="text" name="name" placeholder="Enter tag name">
+        <button>Add Tag</button>
+    </form>
+</div>
+</body>
+</html>

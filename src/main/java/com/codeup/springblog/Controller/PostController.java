@@ -2,13 +2,16 @@ package com.codeup.springblog.Controller;
 
 import com.codeup.springblog.Post;
 import com.codeup.springblog.PostDetails;
+import com.codeup.springblog.Tag;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.TagRepository;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -17,9 +20,11 @@ public class PostController {
     ArrayList<Post> postList;
 
     private final PostRepository postDao;
+    private final TagRepository tagDao;
 
-    public PostController(PostRepository postDao) {
+    public PostController(PostRepository postDao, TagRepository tagDao) {
         this.postDao = postDao;
+        this.tagDao = tagDao;
     }
 
 //    @GetMapping("/posts")
@@ -52,6 +57,24 @@ public class PostController {
         postDao.save(post);
 
         return "redirect:/posts";
+    }
+
+    @GetMapping("/posts-tags/{id}")
+    public String showPostTag(@PathVariable long id,Model vModel) {
+        vModel.addAttribute("post", postDao.getOne(id));
+        return"posts/postTag";
+    }
+
+    @PostMapping("/tags/post/{id}")
+    public String assignNewTagToPost(@PathVariable int id, @RequestParam String name) {
+
+        Post p = postDao.getOne((long)id);
+
+        // create a new tag and associate the tag with a given post
+        tagDao.save(new Tag(name, Arrays.asList(p)));
+
+
+        return "redirect:/post-tags";
     }
 
     //shows all the posts

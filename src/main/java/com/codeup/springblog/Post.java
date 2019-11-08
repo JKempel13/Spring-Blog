@@ -23,6 +23,9 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostImage> images;
 
+    @ManyToMany(mappedBy = "posts")
+    private List<Tag> tags;
+
     public Post() {
     }
 
@@ -31,12 +34,6 @@ public class Post {
         this.description = description;
         this.postDetails = postDetails;
         this.images = images;
-    }
-
-    public Post(String title, String description, PostDetails postDetails) {
-        this.title = title;
-        this.description = description;
-        this.postDetails = postDetails;
     }
 
     public long getId() {
@@ -77,5 +74,13 @@ public class Post {
 
     public void setImages(List<PostImage> images) {
         this.images = images;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }
