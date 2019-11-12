@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<nav class="navbar navbar-light bg-light navbar-expand-md" th:fragment="main-navbar">
+<nav class="navbar navbar-light bg-transparent navbar-expand-md" th:fragment="main-navbar">
     <a class="navbar-brand" href="/posts">Blog</a>
     <ul class="navbar-nav">
         <li class="nav-item mx-3"><a href="/posts">View posts</a></li>
-        <li class="nav-item mx-3"><a href="/posts/create">Create Ad</a></li>
+        <li class="nav-item mx-3"><a href="/posts/create">Create Post</a></li>
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item mx-3"><a href="/register">Register</a></li>
         <li class="nav-item mx-3"><a href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<nav class="navbar navbar-light bg-transparent navbar-expand-md" th:fragment="post-navbar">
+    <a class="navbar-brand" href="/posts">Blog</a>
+    <ul class="navbar-nav">
+        <li class="nav-item mx-3"><a href="/posts">View posts</a></li>
+        <li class="nav-item mx-3"><a href="/posts/create">Create Post</a></li>
     </ul>
 </nav>

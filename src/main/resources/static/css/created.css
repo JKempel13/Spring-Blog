@@ -1,3 +1,10 @@
 body {
-    background-color: lightslategrey;
+    background-image: url("/img/blog_BG2.jpg");
+    background-size: cover;
 }
+
+.card {
+    background-color: transparent;
+    border-style: none;
+}
+

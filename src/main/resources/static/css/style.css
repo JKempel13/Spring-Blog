@@ -1,7 +1,17 @@
 body {
-    background-color: lightblue;
+    background-image: url("/img/blog_BG.jpg");
+    background-size: 100%;
 }
 
 .jumbotron {
+    opacity: 80%;
+}
 
+.card {
+    background-color: transparent;
+    border-style: none;
+}
+
+.card a {
+    color: black;
 }

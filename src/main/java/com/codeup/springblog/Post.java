@@ -40,9 +40,8 @@ public class Post {
         this.images = images;
     }
 
-    // NOT SURE IF I NEED THE USER TAG HERE//
-    public Post(String title, String description) {
-//        this.user = user;//MIGHT NOT NEED THIS
+    public Post(long id, String title, String description) {
+        this.id = id;
         this.title = title;
         this.description = description;
     }

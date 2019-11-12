@@ -70,15 +70,14 @@ public class PostController {
     }
 
     @PostMapping("/tags/post/{id}")
-    public String assignNewTagToPost(@PathVariable int id, @RequestParam String name) {
+    public String assignNewTagToPost(@PathVariable long id, @RequestParam String name) {
 
-        Post p = postDao.getOne((long)id);
+        Post p = postDao.getOne(id);
 
         // create a new tag and associate the tag with a given post
         tagDao.save(new Tag(name, Arrays.asList(p)));
 
-
-        return "redirect:/post-tags";
+        return "redirect:/posts-tags/{id}";
     }
 
     //shows all the posts
@@ -125,19 +124,20 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String showCreateForm() {
+    public String showCreateForm(Model vModel) {
+        vModel.addAttribute("post", new Post());
+        // the name 'post' has to match on the html th:object//
         return "posts/createPost";
     }
 
     @PostMapping("/posts/create")
-    public String create(@RequestParam String title, @RequestParam String description){
+    public String create(@ModelAttribute Post postToBeCreated){
 
-        Post post = new Post(title, description);
-        post.setUser(userDao.getOne(1L));
+        postToBeCreated.setUser(userDao.getOne(1L));// this is manually setting the post to user_id 1 //
 
-        postDao.save(post);
+        Post savedPost = postDao.save(postToBeCreated);
 
-        return "redirect:/posts";
+        return "redirect:/posts/" + savedPost.getId();
     }
 
 

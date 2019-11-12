@@ -22,17 +22,6 @@
             <p th:text="${post.description}"></p>
             <input type="hidden" name="id" th:value="${post.id}">
         </a>
-        <div th:each="tag : ${post.tags}">
-            <p th:text="${tag.name}"></p>
-        </div>
-<!--        <form action="/posts/{id}/edit" method="get">-->
-<!--            <input type="hidden" name="id" th:value="${post.id}">-->
-<!--            <button class="btn btn-info">Edit</button>-->
-<!--        </form>-->
-<!--        <form action="/posts" method="post">-->
-<!--            <input type="hidden" name="id" th:value="${post.id}">-->
-<!--            <button class="btn btn-danger">Delete</button>-->
-<!--        </form>-->
     </div>
 </div>
 <div th:replace="fragments/footer :: main-footer"></div>

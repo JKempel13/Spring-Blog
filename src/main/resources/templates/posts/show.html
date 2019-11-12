@@ -5,24 +5,29 @@
     <title>Title</title>
     <th:block th:replace="fragments/header :: main-header(true)"/>
 </head>
-<body class="container">
-
-<div th:replace="fragments/navbar :: main-navbar"></div>
+<body>
+<div th:replace="fragments/navbar :: post-navbar"></div>
 <hr>
-<div class="card">
-    <div class="col-sm-12">
-        <h1 th:text="${post.title}"></h1>
-        <ul th:each="postImage : ${post.images}">
-            <img th:src="${postImage.url}"/>
-        </ul>
-        <p th:text="${post.description}"></p>
-        <input type="hidden" name="id" th:value="${post.id}">
-        <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
-        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
-            <button class="btn btn-danger btn-block">Delete</button>
-        </form>
+<div class="container">
+    <div class="card">
+        <div class="col-sm-12">
+            <h1 th:text="${post.title}"></h1>
+            <ul th:each="postImage : ${post.images}">
+                <img th:src="${postImage.url}"/>
+            </ul>
+            <p th:text="${post.description}"></p>
+            <p><strong>Post Created By: </strong><span th:text="${post.user.username}"></span></p>
+            <input type="hidden" name="id" th:value="${post.id}">
+            <div th:each="tag : ${post.tags}">
+                <p th:text="${tag.name}"></p>
+            </div>
+            <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
+            <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                <button class="btn btn-danger btn-block">Delete</button>
+            </form>
+        </div>
     </div>
-</div>
 <div th:replace="fragments/footer :: main-footer"></div>
+</div>
 </body>
 </html>
