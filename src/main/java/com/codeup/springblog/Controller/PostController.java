@@ -7,6 +7,8 @@ import com.codeup.springblog.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.TagRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ public class PostController {
     private final PostRepository postDao;
     private final TagRepository tagDao;
     private final UserRepository userDao;
+
+    @Autowired
+    EmailService emailService;
 
     public PostController(PostRepository postDao, TagRepository tagDao, UserRepository userDao) {
         this.postDao = postDao;
@@ -132,11 +137,9 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post postToBeCreated){
-
         postToBeCreated.setUser(userDao.getOne(1L));// this is manually setting the post to user_id 1 //
-
         Post savedPost = postDao.save(postToBeCreated);
-
+        emailService.prepareAndSend(savedPost,"Post Created", "The post has been created, the id is " + savedPost.getId());
         return "redirect:/posts/" + savedPost.getId();
     }
 

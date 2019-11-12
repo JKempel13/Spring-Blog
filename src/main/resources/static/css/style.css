@@ -8,6 +8,8 @@ body {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     background-color: transparent;
     border-style: none;
 }
