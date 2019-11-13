@@ -139,7 +139,7 @@ public class PostController {
     public String create(@ModelAttribute Post postToBeCreated){
         postToBeCreated.setUser(userDao.getOne(1L));// this is manually setting the post to user_id 1 //
         Post savedPost = postDao.save(postToBeCreated);
-        emailService.prepareAndSend(savedPost,"Post Created", "The post has been created, the id is " + savedPost.getId());
+        emailService.prepareAndSend(savedPost,savedPost.getTitle(), savedPost.getDescription());
         return "redirect:/posts/" + savedPost.getId();
     }
 
