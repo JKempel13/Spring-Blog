@@ -10,6 +10,7 @@ import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.SpringBeanContainer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -137,7 +138,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post postToBeCreated){
-        postToBeCreated.setUser(userDao.getOne(1L));// this is manually setting the post to user_id 1 //
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        postToBeCreated.setUser(currentUser);// this is manually setting the post to user_id 1 //
         Post savedPost = postDao.save(postToBeCreated);
         emailService.prepareAndSend(savedPost,savedPost.getTitle(), savedPost.getDescription());
         return "redirect:/posts/" + savedPost.getId();

@@ -13,7 +13,7 @@ public class User {
     private String username;
     @Column(length = 100, nullable = false, unique = true)
     private String email;
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -23,6 +23,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
 
     public User () {}

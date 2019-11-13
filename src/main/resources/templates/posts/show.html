@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View Ad</title>
     <th:block th:replace="fragments/header :: main-header(true)"/>
 </head>
 <body>
-<div th:replace="fragments/navbar :: post-navbar"></div>
+<div th:replace="fragments/navbar :: loggedIn-navbar"></div>
 <hr>
 <div class="container">
     <div class="card">
@@ -18,13 +18,14 @@
             <p th:text="${post.description}"></p>
             <p><strong>Post Created By: </strong><span th:text="${post.user.username}"></span></p>
             <input type="hidden" name="id" th:value="${post.id}">
-            <div th:each="tag : ${post.tags}">
-                <p th:text="${tag.name}"></p>
+            <div sec:authorize="isAuthenticated()">
+                <th:block th:if="${post.user.id == #authentication.principal.id}">
+                    <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
+                    <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                        <button class="btn btn-danger btn-block">Delete</button>
+                    </form>
+                </th:block>
             </div>
-            <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>
-            <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
-                <button class="btn btn-danger btn-block">Delete</button>
-            </form>
         </div>
     </div>
 <div th:replace="fragments/footer :: main-footer"></div>
