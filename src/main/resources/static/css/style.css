@@ -1,6 +1,6 @@
 body {
     background-image: url("/img/blog_BG.jpg");
-    background-size: 100%;
+    background-size: cover;
 }
 
 .jumbotron {

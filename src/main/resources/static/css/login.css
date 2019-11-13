@@ -1,0 +1,10 @@
+body {
+    background-image: url("/img/login_BG.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div a {
+    color: darkred;
+}
