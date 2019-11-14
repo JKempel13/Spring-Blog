@@ -18,6 +18,7 @@
             <p th:text="${post.description}"></p>
             <p><strong>Post Created By: </strong><span th:text="${post.user.username}"></span></p>
             <input type="hidden" name="id" th:value="${post.id}">
+
             <div sec:authorize="isAuthenticated()">
                 <th:block th:if="${post.user.id == #authentication.principal.id}">
                     <a th:href="@{'/posts/' + ${post.id} + '/edit'}"><button class="btn btn-light btn-block">Edit Post</button></a>

@@ -1,10 +1,15 @@
 body {
-    background-image: url("/img/blog_BG2.jpg");
+    background-image: url("/img/blog_BG2.jpeg");
     background-size: cover;
 }
 
 .card {
     background-color: transparent;
     border-style: none;
+}
+
+img {
+    height: 400px;
+    width: 400px;
 }
 

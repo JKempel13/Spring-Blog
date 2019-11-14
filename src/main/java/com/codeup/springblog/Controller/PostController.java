@@ -37,12 +37,6 @@ public class PostController {
         this.userDao = userDao;
     }
 
-//    @GetMapping("/posts")
-//    public String returnTestView(@PathVariable long id, Model viewModel) {
-//        viewModel.addAttribute("posts", postDao.getOne(id));
-//        return "post/index";
-//    }
-
     @GetMapping("/posts/{id}/historyOfPost")
     public String historyOfPost (@PathVariable long id, Model vModel) {
         Post post = postDao.getOne(id);
@@ -99,12 +93,6 @@ public class PostController {
         return "posts/show";
     }
 
-    @GetMapping("/posts/search")
-    @ResponseBody
-    public Post search(@PathVariable String title) {
-        return postDao.findByTitle(title);
-    }
-
     // to get the right post you want to edit
     @GetMapping("/posts/{id}/edit")
     public String editPost(@PathVariable long id, Model vModel) {
@@ -139,20 +127,10 @@ public class PostController {
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post postToBeCreated){
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postToBeCreated.setUser(currentUser);// this is manually setting the post to user_id 1 //
+        postToBeCreated.setUser(currentUser);
         Post savedPost = postDao.save(postToBeCreated);
         emailService.prepareAndSend(savedPost,savedPost.getTitle(), savedPost.getDescription());
         return "redirect:/posts/" + savedPost.getId();
     }
 
-
-//    @GetMapping("/posts/length")
-//    public List<String> returnPostByLength() {
-//        return postDao.getPostOfCertainTitleLength();
-//    }
-//
-//    @GetMapping("/posts/length/native")
-//    public List<String> returnPostByLengthNative() {
-//        return postDao.getPostsOfCertainTitleLengthNative();
-//    }
 }

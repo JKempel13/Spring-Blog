@@ -1,8 +1,15 @@
 body {
     background-image: url("/img/login_BG.png");
+}
+
+container {
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+.card {
+    background-color: transparent;
+    border-style: hidden;
 }
 
 div a {
